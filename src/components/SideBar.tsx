@@ -13,7 +13,7 @@ const Nav = styled.nav`
 
         background-color: #ffffff;
         height: 100vh;
-        width: 308px;
+        width: 260px;
         transition: .3s all;
         padding: 16px;
 
@@ -21,6 +21,12 @@ const Nav = styled.nav`
             height: 34px;
         }
 
+        div#pin_icon {
+            cursor: pointer;
+            color: #888888;
+            margin-top: 6px;
+            font-size: 16px;
+        }
 
         div.nav_header {
             margin: 8px;
@@ -49,7 +55,7 @@ const Nav = styled.nav`
             padding: 0px;
 
             li {
-                padding: 8px 18px;
+                padding: 8px 16px;
                 border-radius: 5px;
                 margin-top: 4px;
                 cursor: pointer;
@@ -64,6 +70,8 @@ const Nav = styled.nav`
             svg {
                 margin-right: 8px;
                 margin-top: -5px;
+                transition: .2s all;
+                font-size: 20px;
             }
 
 
@@ -77,7 +85,6 @@ const Nav = styled.nav`
                     color: white !important;
                 }
             }
-
         }
 
 
@@ -89,21 +96,20 @@ const Nav = styled.nav`
     }
 
 
-
     /* @media screen and (max-width: 1200px) { */
         div#sibeBar_content.compactedSideBar {
             width: 70px;
-            div {
-                div.div_logo {
-                    margin-left: -6px;
-                    h2 {
-                        opacity: 0;
-                    }
-                }
-                div#pin_icon {
-                    display: none;
+            
+            div.div_logo {
+                margin-left: -6px;
+                h2 {
+                    opacity: 0;
                 }
             }
+            div#pin_icon {
+                display: none;
+            }
+            
 
             .div_menu {
                 margin: 0px 0px;
@@ -149,42 +155,77 @@ const Nav = styled.nav`
 
 export function SideBar() {
 
-    // const [larguraPagina, setLarguraPagina] = useState(window.innerWidth);
     const [sideBarClass, setSideBarClass] = useState("");
+    const [fixedSideBar, setFixedSideBar] = useState(false);
+    const [hoverSideBar, setHoverSideBar] = useState(false);
 
-    useEffect(() => {
-        const handleResize = () => {
-            // setLarguraPagina(window.innerWidth);
-            // console.log(window.innerWidth);
-            if(window.innerWidth < 800) {
+    const handleMouseEnter = () => {
+        setHoverSideBar(true);
+        setSideBarClass('');
+    };
+
+    const handleMouseLeave = () => {
+        setHoverSideBar(false);
+        if (fixedSideBar) {
+            setSideBarClass('');
+        } else {
+            if (window.innerWidth < 800) {
                 setSideBarClass('hiddenSideBar');
-            } else if(window.innerWidth < 1200) {
+            } else if (window.innerWidth < 1200) {
                 setSideBarClass('compactedSideBar');
             } else {
                 setSideBarClass('');
             }
-        };
+        }
+    };
+
+    const handleResize = () => {
+        if (fixedSideBar) {
+            setSideBarClass('');
+        } else {
+            if (hoverSideBar) {
+                setSideBarClass('');
+            } else {
+                if (window.innerWidth < 800) {
+                    setSideBarClass('hiddenSideBar');
+                } else if (window.innerWidth < 1200) {
+                    setSideBarClass('compactedSideBar');
+                } else {
+                    setSideBarClass('');
+                }
+            }
+        }
+    };
+
+    useEffect(() => {
 
         window.addEventListener('resize', handleResize);
+        handleMouseLeave();
 
         return () => {
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [fixedSideBar]);
 
 
     return (
         <Nav>
-            <div id="sibeBar_content" className={`${sideBarClass}`}>
-                <div className="nav nav_header navbar-nav flex-row justify-content-between">
+            <div id="sibeBar_content" className={`${sideBarClass}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                <div className="nav_header navbar-nav flex-row justify-content-between">
                     <div className='div_logo'>
                         <span className="brand-logo">
                             <img className='main_logo' src={Logo} alt="logo" />
                         </span>
                         <h2 className="brand-text mb-0 pt-1">Prefeitura</h2>
                     </div>
-                    <div id="pin_icon">
-                        <NavIcon style={{ fontSize: '15px' }} className="icon mt-2" icon="akar-icons:pin" />
+                    <div id="pin_icon" onClick={() => { setFixedSideBar(!fixedSideBar) }}>
+                        {
+                            fixedSideBar
+                                ?
+                                <NavIcon className="icon" icon="ri:pushpin-fill" />
+                                :
+                                <NavIcon className="icon" icon="ri:pushpin-line" />
+                        }
                     </div>
                 </div>
 
@@ -199,21 +240,21 @@ export function SideBar() {
 
                         <NavLink data-bs-toggle="" to="/resumo" aria-expanded="true" aria-controls="sidebarDashboards" className=" ">
                             <li className="">
-                                <NavIcon style={{ fontSize: '20px' }} className="icon" icon="uil:home-alt" />
+                                <NavIcon className="icon" icon="uil:home-alt" />
                                 <span className=" nav_text"> Resumo </span>
                             </li>
                         </NavLink>
 
                         <NavLink data-bs-toggle="" to="/financeiro" aria-expanded="false" aria-controls="sidebarCrm" className="">
                             <li className="">
-                                <NavIcon style={{ fontSize: '20px' }} className="icon" icon="uil:usd-square" />
+                                <NavIcon className="icon" icon="uil:usd-square" />
                                 <span className='nav_text'> Financeiro </span>
                             </li>
                         </NavLink>
 
                         <NavLink to="/clientes" className="">
                             <li className="">
-                                <NavIcon style={{ fontSize: '20px' }} className="icon" icon="uil:users-alt" />
+                                <NavIcon className="icon" icon="uil:users-alt" />
                                 <span className='nav_text'> Clientes </span>
                             </li>
                         </NavLink>
@@ -226,14 +267,14 @@ export function SideBar() {
 
                         <NavLink data-bs-toggle="" to="/sidebarCrm" aria-expanded="false" aria-controls="sidebarCrm" className="">
                             <li className="">
-                                <NavIcon style={{ fontSize: '20px' }} className="icon" icon="uil:tachometer-fast" />
+                                <NavIcon className="icon" icon="uil:tachometer-fast" />
                                 <span className='nav_text'> CRM </span>
                             </li>
                         </NavLink>
 
                         <NavLink data-bs-toggle="" to="/sidebarEcommerce" aria-expanded="false" aria-controls="sidebarEcommerce" className="">
                             <li className="">
-                                <NavIcon style={{ fontSize: '20px' }} className="icon" icon="uil:store" />
+                                <NavIcon className="icon" icon="uil:store" />
                                 <span className='nav_text'> E-commerce </span>
                             </li>
                         </NavLink>
