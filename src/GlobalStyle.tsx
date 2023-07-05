@@ -59,6 +59,9 @@ const GlobalStyle = createGlobalStyle`
     list-style: none;
   }
 
+  .row {
+    --bs-gutter-y: 1rem !important;
+  }
 
   @media screen and (max-width: 800px) {
     ::-webkit-scrollbar {

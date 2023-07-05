@@ -9,7 +9,7 @@ type ContentProps = {
 
 const Div = styled.div`
 
-    background-color: #eeeeee;
+    background-color: #ececec;
     padding: 18px 26px;
     /* padding-top: 80px; */
     overflow-y: scroll;

@@ -6,7 +6,7 @@ const NavBar = styled.nav`
     position: sticky;
     top: 0px;
     display: flex;
-    z-index: 10000;
+    z-index: 100;
     width: 100%;
     color: white;
     /* padding: 20px; */

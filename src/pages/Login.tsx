@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import FullLogo from './../assets/logo-full.png';
+import TextInput from "../components/TextInput";
 
 
 const TelaLogin = styled.div`
@@ -66,11 +67,7 @@ const TelaLogin = styled.div`
                 font-size: 1.72rem;
                 text-align: center;
             }
-            input {
-                background-color: rgba(0,0,0,0.05);
-                border-color: #ececec;
-                color: #ffffff;
-            }
+
             div.form-group {
                 label {
                     margin-top: 20px;
@@ -123,14 +120,15 @@ export function Login() {
                     </h2>
                     <div className="form-group">
                         <label htmlFor="">Email</label>
-                        <input placeholder="exemplo@exemplo.com" className="form-control" type="email" />
+                        <TextInput placeholder="exemplo@exemplo.com" type="email" />
+
                     </div>
                     <div className="form-group">
                         <div className="d-flex justify-content-between">
                             <label htmlFor="">Senha</label>
                             <span id="span_forget_password" >Esqueceu a sua senha?</span>
                         </div>
-                        <input placeholder="senha" className="form-control" type="password" />
+                        <TextInput placeholder="senha" type="password" />
                     </div>
                     <div className="form-check mb-1 mt-2">
                         <input style={{ width: '18px', height: '18px', marginTop: '1px', marginRight: '6px' }} id="remember-me" type="checkbox" className="form-check-input" />

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 type CardProps = {
     children: React.ReactNode;
-    height: number;
+    height?: number | undefined;
 }
 
 
@@ -15,9 +15,9 @@ export function Card(props: CardProps) {
         color: #202020;
 
         .card {
-            /* padding: 16px 16px; */
             margin-top: 24px;
-            min-height: ${(188 * props.height) + ((props.height - 1) * 28)}px;
+            /* min-height: ${(188 * (props.height ? props.height : 1)) + (((props.height ? props.height : 1) - 1) * 28)}px; */
+            ${props.height ? `min-height: ${(188 * (props.height ? props.height : 1)) + (((props.height ? props.height : 1) - 1) * 28)}px;` : 'min-height: 30px;'}
             border: none;
             border-radius: 5px;
             background-color: #ffffff;

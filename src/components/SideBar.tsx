@@ -7,7 +7,9 @@ import { useEffect, useState } from 'react';
 
 const Nav = styled.nav`
 
-    transition: .3s all;
+    * {
+        transition: .3s all;
+    }
 
     div#sibeBar_content {
 
@@ -60,6 +62,7 @@ const Nav = styled.nav`
                 margin-top: 4px;
                 cursor: pointer;
                 transform: .3s all;
+                white-space: nowrap;
             }
 
             .menu_section {
@@ -127,7 +130,7 @@ const Nav = styled.nav`
             }
 
             ul {
-                margin-top: 0px;
+                margin-top: 8px;
                 li {
                     text-align: center;
                     span.menu_section {
