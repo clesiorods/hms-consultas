@@ -63,6 +63,14 @@ const GlobalStyle = createGlobalStyle`
     --bs-gutter-y: 1rem !important;
   }
 
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  label {
+    margin-bottom: 4px;
+  }
+
   @media screen and (max-width: 800px) {
     ::-webkit-scrollbar {
       width: 4px !important;

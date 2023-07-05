@@ -221,7 +221,7 @@ export function SideBar() {
                         </span>
                         <h2 className="brand-text mb-0 pt-1">Prefeitura</h2>
                     </div>
-                    <div id="pin_icon" onClick={() => { setFixedSideBar(!fixedSideBar) }}>
+                    <div id="pin_icon" title='Fixar barra lateral' onClick={() => { setFixedSideBar(!fixedSideBar) }}>
                         {
                             fixedSideBar
                                 ?

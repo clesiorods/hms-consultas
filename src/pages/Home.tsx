@@ -1,12 +1,13 @@
 import { DataGrid } from "devextreme-react";
 import Button from "../components/Button";
-import { useState} from 'react';
+import { useState } from 'react';
 import { Card } from "../components/Card";
 import { MainFrame } from "../components/MainFrame";
 import SelectInput from "../components/SelectInput";
 import TextInput from "../components/TextInput";
 import { Column, Selection } from "devextreme-react/data-grid";
 import { Modal } from "antd";
+import { FormPis } from "../components/FormPis";
 
 
 export function Home() {
@@ -52,26 +53,26 @@ export function Home() {
         },
     ]
 
-    function onSelectionChanged({selectedRowsData}:any) {
+    function onSelectionChanged({ selectedRowsData }: any) {
         const data = selectedRowsData[0];
-        if(data !== null) {
+        if (data !== null) {
             setModalIsOpen(true);
             console.log(data);
             setIdRow(data.aa);
         }
     }
-    
+
     return (
         <MainFrame>
 
-            <Modal open={modalIsOpen} onCancel={() => {setModalIsOpen(false)}} footer={null} centered title={'Cadastro de Pessoa'} style={{width: '60vw', height: '90vh'}}>
-                <p>
-                    {idRow}
-                </p>
+            <Modal open={modalIsOpen} onCancel={() => { setModalIsOpen(false) }} footer={null} centered title={'Cadastro de Pessoa'} width={1000}>
+                <div className="p-3">
+                    <FormPis />
+                </div>
             </Modal>
 
             <Card>
-                <div className="card-body">
+                <div className="card-body mb-0">
                     <div className="row">
                         <div className="col-md-4 form-group">
                             <label htmlFor="">Buscar CPF</label>
@@ -93,9 +94,9 @@ export function Home() {
                         dataSource={dadosTabela}
                         onSelectionChanged={onSelectionChanged}
                         hoverStateEnabled
-                        
+
                     >
-                        <Selection mode="single"/>
+                        <Selection mode="single" />
                         <Column caption="ID" dataField="aa" />
                         <Column caption="NOME" dataField="bb" />
                         <Column caption="CNPJ" dataField="cc" />
